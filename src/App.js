@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-  const accesskey = process.env.API_KEY;
+  //const accesskey = process.env.API_KEY;
   const [img, setImg] = useState("");
   const [res, setRes] = useState([]);
   
@@ -24,9 +24,10 @@ function App() {
     const result = res.map((dt) =>{
         let val = dt.split(".")[0];
         //console.log("val", val);
-        if(val == img || val.includes(img)){
+        if(val === img || val.includes(img)){
           return dt;
         }
+        return "";
     });
     const data = result.filter(function( element ) {
         return element !== undefined;
@@ -51,10 +52,9 @@ function App() {
         </div>
         <div className='row'>
           {
-            res && res.map((data, index) => {
-              let url = `images/${data}`;
+            res && res.map((data, index) => {              
               return <div className='image-box'>
-                      <img className='unsplash-images' key={index} src={require(`/images/${data}`)} width={200} height={200} />
+                      <img className='unsplash-images' key={index} alt={data} src={require(`/images/${data}`)} width={200} height={200} />
                       <div className='image-name'>{data}</div>
                     </div>
             })
